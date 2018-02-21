@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+	<color name="GhostWhite">#F8F8FF</color>
+    <color name="LightSteelBlue">#B0C4DE</color>
+    <color name="LightCyan">#E1FFFF</color>
+	<color name="PaleTurquoise">#AFEEEE</color>
+	<color name="PaleGreen">#98FB98</color>
+	<color name="LightSeaGreen">#20B2AA</color>
+	<color name="Auqamarin">#7FFFAA</color>
+	<color name="Teal">#008080</color>
+	<color name="Aqua">#00FFFF</color>
+</resources>
