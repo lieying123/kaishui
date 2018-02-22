@@ -14,6 +14,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import java.lang.reflect.Field;
 import android.content.Context;
 import android.support.v4.widget.ViewDragHelper;
+import android.util.DisplayMetrics;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Button;
+import android.widget.*;
 
 
 
@@ -79,8 +84,24 @@ public class PlaceHolderFragment extends Fragment
 					three.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.Auqamarin));
 				}
 			});
-
-
+			
+		DisplayMetrics dm = getResources().getDisplayMetrics();
+		int width = dm.widthPixels;
+		ImageView touxiang=(ImageView)rootView.findViewById(R.id.drawerlayoutleftImageView);
+		LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) touxiang.getLayoutParams();
+		params.width=width*2/5;
+		params.height=width*2/5;
+		touxiang.setLayoutParams(params);
+		
+		Button aaa=(Button)rootView.findViewById(R.id.drawerlayoutleftButton1);
+		aaa.setOnClickListener(new OnClickListener(){
+			@Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction()
+					.replace(R.id.container, new PlaceHolderFragment())
+					.commit();
+			}
+		});
 
 		return rootView;
 	}

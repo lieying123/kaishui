@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/left"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:layout_gravity="left"
-	android:background="#20CEB1">
+	android:background="#20CEB1"
+	android:gravity="center_horizontal"
+	android:orientation="vertical">
 
-</RelativeLayout>
+	<ImageView
+		android:layout_height="wrap_content"
+		android:layout_width="fill_parent"
+		android:src="@drawable/defaultc_avatar"
+		android:id="@+id/drawerlayoutleftImageView"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="Text"/>
+
+	<Button
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="登录"
+		android:id="@+id/drawerlayoutleftButton1"/>
+
+</LinearLayout>
 
