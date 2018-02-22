@@ -10,10 +10,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 import java.net.URL;
 import java.net.HttpURLConnection;
-import java.io.IOException;
-import java.util.Map;
-import java.util.List;
-import java.net.MalformedURLException;
+import android.webkit.CookieManager;
+import android.content.SharedPreferences;
 
 public class LoginLayout extends Fragment
 {
@@ -36,24 +34,11 @@ public class LoginLayout extends Fragment
 				{  
 					if (url1.contains("wap.baidu.com"))
 					{
-						try
-						{
-							URL url = new URL(url1);
-							HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-							conn.setRequestMethod("GET");
-							conn.connect();
-							if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
-							{
-								Map<String, List<String>> headFields = conn.getHeaderFields();
-								List<String> cookieList = headFields.get("Set-Cookie");
-
-							}
-						}
-						catch (MalformedURLException e)
-						{}
-						catch (IOException e)
-						{}
-
+						CookieManager cookieManager = CookieManager.getInstance();
+						String cookieStr = cookieManager.getCookie(url1);
+						SharedPreferences.Editor editor = getActivity().getSharedPreferences("data",0).edit();
+						editor.putString("cookie",cookieStr);
+						editor.commit();
 					}
 					view.loadUrl(url1);
 					return true;  

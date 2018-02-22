@@ -10,7 +10,8 @@
 		android:layout_height="wrap_content"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:text="贴吧"
-		android:background="#B0C4DE"/>
+		android:background="#B0C4DE"
+		android:id="@+id/fragmenttiebamainTextView1"/>
 
 </LinearLayout>
 
