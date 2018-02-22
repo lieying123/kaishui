@@ -18,7 +18,6 @@ import android.util.DisplayMetrics;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Button;
-import android.widget.*;
 
 
 
@@ -98,7 +97,8 @@ public class PlaceHolderFragment extends Fragment
 			@Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction()
-					.replace(R.id.container, new PlaceHolderFragment())
+					.replace(R.id.container, new LoginLayout())
+					.addToBackStack(null)
 					.commit();
 			}
 		});

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.os.Bundle;
 import android.webkit.WebView;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 
@@ -19,16 +18,13 @@ public class LoginLayout extends Fragment
 		View rootView=inflater.inflate(R.layout.login, container, false);
 		webView = (WebView) rootView.findViewById(R.id.webView);
 		webView.getSettings().setJavaScriptEnabled(true);
-		webView.getSettings().setDomStorageEnabled(true);
-        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.getSettings().setSupportMultipleWindows(true);
-        webView.getSettings().setBuiltInZoomControls(true);
 		webView.getSettings().setAllowFileAccess(true);
+		webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 		//setAllowFileAccess设置可以访问文件，这个权限很重要，没有就不能访问
-        webView.setWebChromeClient(new WebChromeClient());
 		webView.loadUrl("http://wappass.baidu.com/passport/?login");
+		webView.onResume();
+		webView.canGoForward();
 		webView.setWebViewClient(new WebViewClient(){
-
 				@Override
 				public boolean shouldOverrideUrlLoading(WebView view, String url)
 				{  
@@ -36,10 +32,7 @@ public class LoginLayout extends Fragment
 					{
 						
 					}
-					else
-					{  
-						view.loadUrl(url);  
-					}  
+					view.loadUrl(url);
 					return true;  
 				}  
 			});
