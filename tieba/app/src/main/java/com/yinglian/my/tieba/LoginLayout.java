@@ -12,6 +12,7 @@ import java.net.URL;
 import java.net.HttpURLConnection;
 import android.webkit.CookieManager;
 import android.content.SharedPreferences;
+import android.widget.*;
 
 public class LoginLayout extends Fragment
 {
@@ -39,6 +40,10 @@ public class LoginLayout extends Fragment
 						SharedPreferences.Editor editor = getActivity().getSharedPreferences("data",0).edit();
 						editor.putString("cookie",cookieStr);
 						editor.commit();
+						getFragmentManager().beginTransaction()
+							.replace(R.id.container, new PlaceHolderFragment())
+							.addToBackStack(null)
+							.commit();
 					}
 					view.loadUrl(url1);
 					return true;  
