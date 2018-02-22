@@ -6,7 +6,6 @@ import android.view.WindowManager;
 import android.support.v7.app.AppCompatActivity;
 
 
-//1249 9170 8670 1124
 public class MainActivity extends AppCompatActivity
 {
 

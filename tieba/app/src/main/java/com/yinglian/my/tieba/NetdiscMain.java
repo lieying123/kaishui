@@ -7,6 +7,11 @@ import android.os.Bundle;
 
 public class NetdiscMain extends Fragment
 {
+	/*
+	GitHub使用教程：http://www.runoob.com/w3cnote/git-guide.html
+	RSS获取吧内容：http://www.360doc.cn/article/106843_4656603.html
+	 
+	*/
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
