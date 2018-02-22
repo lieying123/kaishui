@@ -13,6 +13,9 @@ import java.net.HttpURLConnection;
 import android.webkit.CookieManager;
 import android.content.SharedPreferences;
 import android.widget.*;
+import java.util.*;
+import java.net.*;
+import java.io.IOException;
 
 public class LoginLayout extends Fragment
 {
@@ -31,23 +34,20 @@ public class LoginLayout extends Fragment
 		webView.canGoForward();
 		webView.setWebViewClient(new WebViewClient(){
 				@Override
-				public boolean shouldOverrideUrlLoading(WebView view, String url1)
-				{  
-					if (url1.contains("wap.baidu.com"))
+				public void onPageFinished(WebView view, String url) {
+					if (url.contains("wap.baidu.com"))
 					{
 						CookieManager cookieManager = CookieManager.getInstance();
-						String cookieStr = cookieManager.getCookie(url1);
-						SharedPreferences.Editor editor = getActivity().getSharedPreferences("data",0).edit();
-						editor.putString("cookie",cookieStr);
+						String cookieStr = cookieManager.getCookie(url);
+						SharedPreferences.Editor editor = getActivity().getSharedPreferences("data", 0).edit();
+						editor.putString("cookie", cookieStr.toString());
 						editor.commit();
 						getFragmentManager().beginTransaction()
 							.replace(R.id.container, new PlaceHolderFragment())
 							.addToBackStack(null)
 							.commit();
 					}
-					view.loadUrl(url1);
-					return true;  
-				}  
+				}
 			});
 		return rootView;
 	}

@@ -1,65 +1,57 @@
 package com.yinglian.my.tieba;
 import java.net.*;
 import java.io.*;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpEntity;
+import org.apache.http.util.EntityUtils;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.*;
 
 public class HttpService
 {
-	protected static String getHttp(String path,String cookie)
+	public static String getHttp(String path)
 	{
-		try{
-			URL url = new URL(path);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			conn.setConnectTimeout(5000);
-			conn.setReadTimeout(5000);
-			conn.setRequestProperty("Cookie", cookie);
-			InputStream inStream = conn.getInputStream();
-			byte[] data = readInputStream(inStream);
-			String html = new String(data, "utf-8");
-			return html;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	protected static String postHttp(String url,String path){
+		String json=null;
 		try
 		{
-			URL url1=new URL(url);
-			HttpURLConnection conn=(HttpURLConnection)url1.openConnection();
-			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1"+"(KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1");
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
-			OutputStreamWriter osw=new OutputStreamWriter(conn.getOutputStream(),"utf-8");
-			BufferedWriter bw=new BufferedWriter(osw);
-			bw.write(path);
-			bw.flush();
-			conn.setConnectTimeout(5000);
-			conn.setReadTimeout(5000);
-			InputStream inStream = conn.getInputStream();
-			byte[] data = readInputStream(inStream);
-			String html = new String(data, "utf-8");
-			return html;
+			URL url=new URL(path);
+			URI uri=new URI(url.getProtocol(), url.getHost(), url.getPath(), url.getQuery(), null);
+			HttpClient http=new DefaultHttpClient();
+			HttpGet httpGet=new HttpGet(uri);
+			HttpResponse response=http.execute(httpGet);
+			HttpEntity entity=response.getEntity();
+			json = EntityUtils.toString(entity);
 		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		return null;
+		catch (MalformedURLException e)
+		{}
+		catch (URISyntaxException e)
+		{}
+		catch (IOException e)
+		{}
+
+		return json;
 	}
 
-	public static byte[] readInputStream(InputStream inStream) throws Exception
+	public static String getHttpWithCookie(String path, String cookies)
 	{
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		byte[] buffer = new byte[1024];
-		int len = 0;
-		while ((len = inStream.read(buffer)) != -1)
-		{
-			outStream.write(buffer, 0, len);
-		}
-		inStream.close();
-		return outStream.toByteArray();
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet(path);
+		//String Au="Bearer "+access_token;
+		//httpGet.setHeader("Authorization",Au);  
+		httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1"+"(KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1");
+		httpGet.addHeader(new BasicHeader("Cookie",cookies));
+		HttpResponse response = null;  
+		try{
+			response = httpClient.execute(httpGet);
+		}catch (Exception e) {} 
+		String temp="";
+		try{
+			HttpEntity entity = response.getEntity();
+			temp=EntityUtils.toString(entity,"UTF-8");
+		}catch (Exception e) {} 
+		return temp;
 	}
 }
